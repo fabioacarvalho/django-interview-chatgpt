@@ -55,7 +55,7 @@ This project is an interviewer that uses the ChatGPT API to generate questions b
 ```
 <br>
 
-### Iniciando o servidor:
+### Starting the server:
 
 ```shell
     python manage.py runserver
