@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ page_title }}</h1>
+    {% for job in jobs %}
+        <div class="card mt-3" style="box-shadow: rgba(0,0,0,0.24)">
+            <div class="card-body">
+                <h5 class="card-title">{{ job.title }}</h5>
+                <h6 class="card-title">Level: {{ job.get_level_display }}</h6>
+                <p class="card-text">{{ job.description }}</p>
+                <p class="d-inline-flex gap-1">
+
+                    <div style="display: flex; justify-content: left;">
+                        <a class="btn btn-secondary" style="margin-right: 5px;" data-bs-toggle="collapse" href="#collapseExample{{ job.id }}" role="button" aria-expanded="false" aria-controls="collapseExample{{ job.id }}">
+                            Details
+                        </a>
+                        <form action="{% url 'interviews:create_chat' job_id=job.pk %}", method="POST"> {% csrf_token %}
+                            <input class="btn btn-primary ml-3" type="submit" value="Start Interview">
+                        </form>
+
+                    </div>
+
+{#                  <a class="btn btn-primary" type="button" href="{% url 'interviews:create_chat' job_id=job.pk %}">#}
+{#                    Start Interview#}
+{#                  </a>#}
+                </p>
+                <div class="collapse" id="collapseExample{{ job.id }}">
+                      <div class="card card-body">
+
+                            <h5 class="card-title">Requirements</h5>
+                            <ul>
+                                {% for requirement in job.requirements_list %}
+                                    <li>{{ requirement }}</li>
+                                {% endfor %}
+                            </ul>
+
+                          <hr>
+
+                            <h5 class="card-title">Responsibilities</h5>
+                            <ul>
+                                {% for requirement in job.responsibilities_list %}
+                                    <li>{{ requirement }}</li>
+                                {% endfor %}
+                            </ul>
+
+                          <hr>
+
+                            <h5 class="card-title">Skills</h5>
+                            {% for skill in job.skills.all %}
+                                <ul>
+                                    <li>{{ skill.title }}</li>
+                                </ul>
+                            {% endfor %}
+
+                      </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

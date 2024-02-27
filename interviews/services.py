@@ -16,6 +16,7 @@ class GptService:
             "messages": [self.__convert_to_chat_message_format(message) for message in messages]
         }
         headers = {
+            "Content-Type": "application/json",
             "Authorization": f"Bearer {self.__open_ai_api_key}"
         }
         response = requests.post(
@@ -26,6 +27,8 @@ class GptService:
 
         # obtendo o corpo da resposta convertendo em dicionário python
         body = response.json()
+
+        print(body)
 
         try:
             if body["error"]:
@@ -38,5 +41,5 @@ class GptService:
     def __convert_to_chat_message_format(self, message):
         return {
             'role': message.role,
-            'message': message.content
+            'content': message.content
         }

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <style>
+
+        .system_body {
+            background: #dadada;
+        }
+
+        .user_body {
+            background: #8cb287;
+        }
+
+        .user_card_box {
+            box-shadow: 2px 2px 2px #8cb287;
+        }
+
+        .system_card_box {
+            box-shadow: 2px 2px 2px #dadada;
+        }
+
+        .text_box {
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.38);
+        }
+
+    </style>
+
+    <h1>{{ chat.job.title }}</h1>
+
+    {% for message in chat.message_set.all %}
+        {% if forloop.counter not in chat_hidden %}
+            <div style="display: flex; {% if message.role == 'user' %} justify-content: right; {% else %} justify-content: left; {% endif %}">
+                <div class="card mb-3 {% if not message.role == 'user' %} system_body system_card_box {% else %} user_card_box {% endif %}" style="width: 50rem;" >
+                      <h5 class="card-header {% if message.role == 'user' %} user_body text-white {% endif %}">
+                      {% if message.role == 'user' %}
+                          YOU
+                      {% else %}
+                          {{ message.role|upper }}
+                      {% endif %} </h5>
+                      <div class="card-body">
+                        <p class="card-text">{{ message.content }}</p>
+                        <p class="card-text">{{ message.created_at|date:"d/m/Y h:m" }}</p>
+                      </div>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div>
+        <form action="{% url 'interviews:process_chat' chat_uuid=chat.uuid %}" method="post">{% csrf_token %}
+            <div class="form-floating mb-2">
+                <textarea autofocus style="height: 150px;"
+                          class="form-control"
+                          placeholder="Adicione sua resposta aqui..."
+                          id="answer" name="answer"></textarea>
+                <label for="answer">Respostas</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mb-4 ">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

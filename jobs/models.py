@@ -10,6 +10,13 @@ class Job(models.Model):
     level = models.CharField(max_length=20, verbose_name='Level', choices=LEVEL_CHOICES)
     skills = models.ManyToManyField("jobs.Skill", verbose_name='Skill')
 
+
+    def requirements_list(self):
+        return self.requirements.split("\n")
+
+    def responsibilities_list(self):
+        return self.responsibilities.split("\n")
+
     def __str__(self):
         return self.title
 
