@@ -4,8 +4,9 @@ Este projeto é um entrevistador que utiliza a API do ChatGPT para gerar pergunt
 
 ## O que você precisa para utilizar este projeto
 
-- Criar uma conta no OpenAI
-- Criar um API_KEY
+- Criar uma conta no OpenAI;
+- Criar um API_KEY;
+- Renomear o arquivo .env_example para .env e alterar os dados necessários.
 
 ---
 
