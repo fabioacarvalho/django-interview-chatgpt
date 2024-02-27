@@ -1,6 +1,8 @@
 # Django Interview Chatgpt
 
-# O que você precisa para utilizar este projeto
+Este projeto é um entrevistador que utiliza a API do ChatGPT para gerar perguntas baseado nos requisitos das vagas cadastradas e no final gera um feedback do candidato.
+
+## O que você precisa para utilizar este projeto
 
 - Criar uma conta no OpenAI
 - Criar um API_KEY
