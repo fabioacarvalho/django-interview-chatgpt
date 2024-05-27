@@ -1,12 +1,18 @@
-[build] 
-command = "python manage.py collectstatic --noinput" 
-publish = "path/to/your/static/files"
-commandOrigin = "config"
-SECRET_KEY="YOUR_SECRET_KEY"
-DEBUG=false
-ALLOWED_HOSTS=".netlify.app"
-GPT_MODEL="gtp-3.5-turbo"
-OPEN_AI_API_KEY="YOUR_OPEN_AI_API_KEY"
-OPEN_AI_BASE_URL="https://api.openai.com/v1"
-INITIAL_PROMPT_TEMPLATE="A partir de agora você irá agir como um recrutador que está realizando uma entrevista com um candidato para uma vaga de {job_title}, para essa vaga são exigidos os seguintes requisitos: \n {job_requirements} /n Além disso, a vaga possui os seguintes pontos como principais atividades: \n {job_responsibilities} \n Você deve realizar uma única pergunta por vez e esperar a resposta do candidato para realizar a próxima pergunta."
-publishOrigin = "config"
+[build]
+  command = "python manage.py collectstatic --noinput"
+  publish = "staticfiles"
+
+[context.production.environment]
+  SECRET_KEY = "YOUR_SECRET_KEY"
+  DEBUG = "false"
+  ALLOWED_HOSTS = ".netlify.app"
+  GPT_MODEL = "gtp-3.5-turbo"
+  OPEN_AI_API_KEY = "YOUR_OPEN_AI_API_KEY"
+  OPEN_AI_BASE_URL = "https://api.openai.com/v1"
+  INITIAL_PROMPT_TEMPLATE = """
+  A partir de agora você irá agir como um recrutador que está realizando uma entrevista com um candidato para uma vaga de {job_title}, para essa vaga são exigidos os seguintes requisitos:
+  {job_requirements}
+  Além disso, a vaga possui os seguintes pontos como principais atividades:
+  {job_responsibilities}
+  Você deve realizar uma única pergunta por vez e esperar a resposta do candidato para realizar a próxima pergunta.
+  """
